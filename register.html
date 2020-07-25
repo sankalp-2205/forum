@@ -1,0 +1,121 @@
+<html>
+  <head>
+    <title>Inki's PHP Forum Tutorial</title>
+  </head>
+  <link
+    href="/forum-tutorial/styles/main.css"
+    type="text/css"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+  />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <body>
+    <div class="pane">
+      <div class="header">
+        <h1><a href="/forum-tutorial">PHP and MySQL Forum Tutorial</a></h1>
+      </div>
+      <div class="registerpane">
+        <form
+          id="registerform"
+          class="text-center border border-light p-5"
+          method="POST"
+        >
+          <h2 class="h4 mb-5 heading">USER register</h2>
+          <div id="registermessage"></div>
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input
+              type="text"
+              id="registerusername"
+              name="registerusername"
+              class="form-control"
+              placeholder="username"
+            />
+            <div
+              class="valid-feedback mb3"
+              id="registerusernameerror"
+              style="color: red;"
+            ></div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input
+              type="email"
+              id="registeremail"
+              name="registeremail"
+              class="form-control"
+              placeholder="Email"
+            />
+            <div
+              class="valid-feedback mb3"
+              id="registeremailerror"
+              style="color: red;"
+            ></div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input
+              type="password"
+              id="registerpassword"
+              name="registerpassword"
+              class="form-control"
+              placeholder="password"
+            />
+            <div
+              class="valid-feedback mb3"
+              id="registerpassworderror"
+              style="color: red;"
+            ></div>
+          </div>
+          <br />
+
+          <div class="col-md-12">
+            <input
+              type="button"
+              id="register"
+              value="Register"
+              class="btn btn-dark btn-md text-white"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="forumdesc">
+        <p>
+          Welcome to the world's coolest forum made with PHP and MySQL... for
+          noobs just like you!
+        </p>
+      </div>
+      <div class="content"></div>
+    </div>
+  </body>
+  <script>
+    $("#register").click(function (event) {
+      event.preventDefault();
+      var datatopost = $("#registerform").serializeArray();
+      console.log(datatopost);
+      $.ajax({
+        url: "registration.php",
+        type: "POST",
+        data: datatopost,
+        success: function (data) {
+          data = data.toString();
+          console.log(data.type);
+          if ((data = "Here") == "Here") {
+            console.log("yo");
+          }
+        },
+        error: function () {
+          $("#registermessage").html(
+            "<div class = 'alert alert-danger'>Issue with ajax call.Plz try later </div>"
+          );
+          $("#registermessage").hide();
+          $("#registermessage").fadeIn();
+        },
+      });
+    });
+  </script>
+</html>
